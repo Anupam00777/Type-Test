@@ -1,13 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-5/6">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>tYPe-tEsT</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./output.css" />
   </head>
   <body>
-    <div class="flex min-w-screen h-15 bg-blue-50"></div>
+    <header class="bg-blue-400 flex flex-row sticky">
+      <nav class="flex min-h-10 w-fit">
+        <ul class="list-inside flex p-3">
+          <li class="list-item mx-2">Home</li>
+          <li class="list-item mx-2">About</li>
+          <li class="list-item mx-2">Contact</li>
+        </ul>
+      </nav>
+      <div
+        class="logo flex min-h-full max-w-fit justify-center items-center relative ml-auto mr-2"
+      >
+        <h2 class="text-yellow-500">TyPe teSt</h2>
+      </div>
+    </header>
+    <main>
+      <div
+        class="text-4xl flex w-max h-fit p-2 mx-auto my-4 font-bold font-sans"
+      >
+        Test Your typing Speed and Accuracy
+      </div>
+      <div
+        class="input flex w-9/12 mx-auto bg-orange-200 border rounded shadow-md max-w-4xl flex-col shadow-black"
+      >
+        <div
+          class="text-xl flex w-max h-fit p-2 mx-auto my-4 font-bold font-sans"
+        >
+          Fill below Fields
+        </div>
+        <div class="grid w-full h-max p-3 my-3 grid-flow-col grid-cols-3">
+          <label for="name" class="font-medium place-self-end self-center"
+            >Name here: &nbsp;</label
+          >
+          <input
+            placeholder="Name"
+            type="text"
+            name="name"
+            id="name"
+            class="border-collapse w-7/12 border-2 shadow-md shadow-black hover:cursor-text hover:border-gray-700 pl-1 text-center col-span-2"
+          />
+        </div>
+        <div
+          class="play flex mx-auto bg-red-500 border-2 border-red-700 rounded-full my-5 p-5 text-3xl font-serif font-bold text-black shadow-xl shadow-black hover:bg-green-400 hover:p-7 hover:text-red-600 hover:border-green-700 hover:border-4 transition-all duration-500 cursor-pointer"
+        >
+          Start
+        </div>
+        <div
+          class="leaderboard flex bg-white border-1 border-blue-50 shadow-sm shadow-slate-700 w-9/12 min-h-max h-96 mx-auto my-5 flex-col"
+        >
+          <div
+            class="flex text-lg font-serif font-medium underline text-center my-2 mx-auto max-w-full w-max h-fit"
+          >
+            Leaderboard
+          </div>
+          <div class="w-full px-2">
+            <ol class="sm:overflow-scroll scroll-smooth" type="1">
+              <li>gg</li>
+              <li>gg</li>
+              <li>gg</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer
+      class="fixed flex w-full h-max bg-cyan-500 text-center items-center justify-center font-serif font-light text-sm bottom-0"
+    >
+      @Made by Anupam Pandey
+    </footer>
   </body>
+  <script src="./index.js"></script>
 </html>
