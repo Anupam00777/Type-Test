@@ -168,7 +168,7 @@ hBtn.addEventListener("click", () => {
   console.log("p");
   prompt(
     "How to Play",
-    "Its Quite Easy. When the countdown finishes, a text will appear. Just start typing and continue as long as you can. Remember to consider the Upper-case letters and punctuations too. If you made a mistake the Text will turn red, Backspace won't work. Every key you press will be shown in bottom-mid part. The more letters you write, your points will increase. Based on the timer, your Words per second value will be shown.Play for ATLEAST 10s.Percentage of Error will be shown based on how much from the total text you got wrong.",
+    "Its Quite Easy. When the countdown finishes, a text will appear. Just start typing and continue as long as you can. Remember to consider the Upper-case letters and punctuations too. If you made a mistake the Text will turn red, Backspace won't work. Every key you press will be shown in bottom-mid part. The more letters you write, your points will increase. Based on the timer, your Words per second value will be shown.Play for ATLEAST 10s after that you can PRESS ESCAPE to stop the game and calculate score.Percentage of Error will be shown based on how much from the total text you got wrong.",
     100
   );
 });
