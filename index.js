@@ -1,26 +1,65 @@
 const input = document.querySelector("#name");
-const btn = document.querySelector(".play");
+const pBtn = document.querySelector(".play");
+const lBtn = document.querySelector(".like");
+const hBtn = document.querySelector(".help");
 const startTile = document.querySelector(".startTile");
 const typeTest = document.querySelector(".typeTest");
 const board = document.querySelector(".board");
 const timer = document.querySelector(".timer");
 const stroke = document.querySelector(".stroke");
 const score = document.querySelector(".score");
+const wps = document.querySelector(".wps");
+const errPer = document.querySelector(".errPer");
+let pb = document.querySelector(".pb");
+let pclose = document.querySelector(".pclose");
+let pheading = document.querySelector(".pheading");
+let ptext = document.querySelector(".ptext");
+const comment = document.querySelector(".comment");
 let keyStrokes = 0;
+let onLetter = 0;
 let points = 0;
-let Sentence = "Hello World I am a Dummy Text.";
-let wordPool = [];
+let time = 0;
+let wordCount = 0;
+let WordsPerSec = 0;
+let liked = false;
+let ErrorPrecentage = 0;
+let Sentence = "";
+let wordPool;
 
 function createTest() {
+  const xmlhttp = new XMLHttpRequest();
+  xmlhttp.onload = function () {
+    let myObj = this.responseText;
+    myObj = myObj.split(",");
+    for (let i = 0; i < myObj.length; i++) {
+      myObj[i] = myObj[i].split("\n");
+      myObj[i].shift();
+    }
+    wordPool = myObj;
+    serveTest();
+  };
+  xmlhttp.open("GET", "unigram_freq.csv");
+  xmlhttp.send();
+}
+
+function serveTest() {
+  Sentence = "";
+  onLetter = 0;
+  for (let i = 0; i < 5; i++) {
+    Sentence += wordPool[Math.floor(Math.random() * (333000 - 1 + 1) + 1)];
+    if (i != 4) Sentence += " ";
+  }
+  typeTest.innerHTML = null;
   for (let i = 0; i < Sentence.length; i++) {
     if (Sentence[i] !== " ") {
-      letterContent = `<p id="letter${i}">${Sentence[i]}</p>`;
+      letterContent = `<div id="letter${i}" class="h-max flex">${Sentence[i]}</div>`;
     } else {
-      letterContent = `<p id="letter${i}">&nbsp;</p>`;
+      letterContent = `<div id="letter${i}" class="h-max flex">&nbsp;</div>`;
     }
     typeTest.innerHTML += letterContent;
   }
 }
+
 function countDown(x = 3, fun1, fun2) {
   let count = x;
   let countInterval = setInterval(() => {
@@ -38,12 +77,18 @@ function countDown(x = 3, fun1, fun2) {
 
 function startTimer() {
   Timer = setInterval(() => {
-    let t = timer.innerText;
     let c = 8;
-    if (t >= 9) c -= 3;
+    if (time >= 9) c -= 3;
     timer.innerHTML = `<p class="font-black text-${c}xl text-center font-mono">${
-      parseInt(t) + 1
+      time + 1
     }</p>`;
+    time++;
+    WordsPerSec = (wordCount / time).toPrecision(4);
+    ErrorPrecentage = (((keyStrokes - points) * 100) / keyStrokes).toPrecision(
+      4
+    );
+    wps.innerText = WordsPerSec;
+    errPer.innerText = `${ErrorPrecentage} %`;
   }, 1000);
 }
 function stopTimer() {
@@ -51,40 +96,86 @@ function stopTimer() {
 }
 
 function validText(t) {
-  if (Sentence[keyStrokes] === t) {
-    document.getElementById(`letter${keyStrokes}`).className +=
-      "text-green-600";
+  if (Sentence[onLetter] === t) {
+    document.getElementById(`letter${onLetter}`).className += " text-green-600";
     points++;
   } else {
-    document.getElementById(`letter${keyStrokes}`).className += "text-red-600";
-    points--;
+    document.getElementById(`letter${onLetter}`).className += " text-red-600";
   }
   keyStrokes++;
+  onLetter++;
   score.innerText = points;
-  if (keyStrokes == Sentence.length) {
-    stopTimer();
+  if (Sentence[onLetter] === " ") wordCount++;
+  if (onLetter == Sentence.length) {
+    wordCount++;
+    serveTest();
   }
 }
 
+function prompt(heading, text, time = 5) {
+  pb.style.display = "flex";
+  pheading.innerText = heading;
+  ptext.innerText = text;
+}
+
+function closePrompt() {
+  pb.style.display = "none";
+}
+
 function gameStart() {
-  countDown(5, startTimer, createTest);
   document.body.addEventListener("keydown", (e) => {
-    if (
-      e.key !== "Shift" &&
-      e.key !== "Backspace" &&
-      e.key !== "Control" &&
-      e.key !== "Enter" &&
-      e.key !== "Tab"
-    ) {
-      stroke.innerText = e.key;
-      validText(e.key);
+    switch (e.key) {
+      case "Escape":
+        console.log("esc");
+        if (time >= 10) {
+          gameEnd();
+        }
+        break;
+      case "Shift":
+        break;
+      case "Control":
+        break;
+      case "Enter":
+        break;
+      case "Tab":
+        break;
+      case "Backspace":
+        break;
+      default:
+        stroke.innerText = e.key;
+        validText(e.key);
+        break;
     }
   });
 }
 
-btn.addEventListener("click", () => {
+function gameEnd() {
+  stopTimer();
+  prompt(
+    "Your Score",
+    `Your Average words per second speed is :- ${WordsPerSec}.....Your Error Percentage is :- ${ErrorPrecentage}`
+  );
+}
+
+pBtn.addEventListener("click", () => {
   startTile.style.display = "none";
   typeTest.style.display = "flex";
   board.style.display = "flex";
+  countDown(3, startTimer, createTest);
   gameStart();
+});
+hBtn.addEventListener("click", () => {
+  console.log("p");
+  prompt(
+    "How to Play",
+    "Its Quite Easy. When the countdown finishes, a text will appear. Just start typing and continue as long as you can. Remember to consider the Upper-case letters and punctuations too. If you made a mistake the Text will turn red, Backspace won't work. Every key you press will be shown in bottom-mid part. The more letters you write, your points will increase. Based on the timer, your Words per second value will be shown.Play for ATLEAST 10s.Percentage of Error will be shown based on how much from the total text you got wrong.",
+    100
+  );
+});
+pclose.addEventListener("click", () => {
+  closePrompt();
+});
+lBtn.addEventListener("click", () => {
+  liked = liked == true ? false : true;
+  lBtn.innerText = liked == true ? "Like ❤️" : "Like 🤍";
 });
