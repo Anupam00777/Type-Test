@@ -71,7 +71,7 @@ function countDown(x = 3, arr) {
   setTimeout(() => {
     typeTest.innerHTML = "";
     clearInterval(countInterval);
-    arr.foreach(function (element){
+    arr.forEach(function (element){
     element();
     })
   }, x * 1000 + 1000);
