@@ -20,7 +20,7 @@ let onLetter = 0;
 let points = 0;
 let time = 0;
 let wordCount = 0;
-let WordsPerSec = 0;
+let WordsPerMin = 0;
 let liked = false;
 let ErrorPrecentage = 0;
 let Sentence = "";
@@ -37,6 +37,7 @@ function createTest() {
     }
     wordPool = myObj;
     serveTest();
+    startTimer();
   };
   xmlhttp.open("GET", "unigram_freq.csv");
   xmlhttp.send();
@@ -60,7 +61,7 @@ function serveTest() {
   }
 }
 
-function countDown(x = 3, fun1, fun2) {
+function countDown(x = 3, arr) {
   let count = x;
   let countInterval = setInterval(() => {
     typeTest.innerHTML = "";
@@ -70,8 +71,9 @@ function countDown(x = 3, fun1, fun2) {
   setTimeout(() => {
     typeTest.innerHTML = "";
     clearInterval(countInterval);
-    fun1();
-    fun2();
+    arr.foreach(function (element){
+    element();
+    })
   }, x * 1000 + 1000);
 }
 
@@ -83,11 +85,11 @@ function startTimer() {
       time + 1
     }</p>`;
     time++;
-    WordsPerSec = (wordCount / time).toPrecision(4);
+    WordsPerMin = ((wordCount / time)*60).toPrecision(4);
     ErrorPrecentage = (((keyStrokes - points) * 100) / keyStrokes).toPrecision(
       4
     );
-    wps.innerText = WordsPerSec;
+    wps.innerText = WordsPerMin;
     errPer.innerText = `${ErrorPrecentage} %`;
   }, 1000);
 }
@@ -153,7 +155,7 @@ function gameEnd() {
   stopTimer();
   prompt(
     "Your Score",
-    `Your Average words per second speed is :- ${WordsPerSec}.....Your Error Percentage is :- ${ErrorPrecentage}`
+    `Your Average WORDS PRE MINUTE :- ${WordsPerSec}.....Your Error Percentage is :- ${ErrorPrecentage}`
   );
 }
 
@@ -161,14 +163,14 @@ pBtn.addEventListener("click", () => {
   startTile.style.display = "none";
   typeTest.style.display = "flex";
   board.style.display = "flex";
-  countDown(3, startTimer, createTest);
+  countDown(3, [createTest]);
   gameStart();
 });
 hBtn.addEventListener("click", () => {
   console.log("p");
   prompt(
     "How to Play",
-    "Its Quite Easy. When the countdown finishes, a text will appear. Just start typing and continue as long as you can. Remember to consider the Upper-case letters and punctuations too. If you made a mistake the Text will turn red, Backspace won't work. Every key you press will be shown in bottom-mid part. The more letters you write, your points will increase. Based on the timer, your Words per second value will be shown.Play for ATLEAST 10s after that you can PRESS ESCAPE to stop the game and calculate score.Percentage of Error will be shown based on how much from the total text you got wrong.",
+    "Its Quite Easy. When the countdown finishes, a text will appear. Just start typing and continue as long as you can. Remember to consider the Upper-case letters and punctuations too. If you made a mistake the Text will turn red, Backspace won't work. Every key you press will be shown in bottom-mid part. The more letters you write, your points will increase. Based on the timer, your Words per minute value will be shown.Play for ATLEAST 10s after that you can PRESS ESCAPE to stop the game and calculate score.Percentage of Error will be shown based on how much from the total text you got wrong.",
     100
   );
 });
