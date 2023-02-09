@@ -1,4 +1,5 @@
 const input = document.querySelector("#name");
+const duration = document.querySelector("#duration");
 const pBtn = document.querySelector(".play");
 const lBtn = document.querySelector(".like");
 const hBtn = document.querySelector(".help");
@@ -15,17 +16,21 @@ let pclose = document.querySelector(".pclose");
 let pheading = document.querySelector(".pheading");
 let ptext = document.querySelector(".ptext");
 const comment = document.querySelector(".comment");
+const LeaderBoardList = document.querySelector(".leaderboard");
+let leaderboard;
 let keyStrokes = 0;
 let onLetter = 0;
 let points = 0;
 let time = 0;
+let timeLimit = 0;
 let wordCount = 0;
 let WordsPerMin = 0;
 let liked = false;
 let ErrorPrecentage = 0;
 let Sentence = "";
 let wordPool;
-
+let playerName;
+const date = new Date(0);
 function createTest() {
   const xmlhttp = new XMLHttpRequest();
   xmlhttp.onload = function () {
@@ -71,24 +76,26 @@ function countDown(x = 3, arr) {
   setTimeout(() => {
     typeTest.innerHTML = "";
     clearInterval(countInterval);
-    arr.forEach(function (element){
-    element();
-    })
+    arr.forEach(function (element) {
+      element();
+    });
   }, x * 1000 + 1000);
 }
 
 function startTimer() {
   Timer = setInterval(() => {
-    let c = 8;
-    if (time >= 9) c -= 3;
-    timer.innerHTML = `<p class="font-black text-${c}xl text-center font-mono">${
-      time + 1
-    }</p>`;
+    if (time >= timeLimit) {
+      gameEnd();
+    }
+    date.setSeconds(time);
+    date.setMinutes(time / 60);
+    timer.innerHTML = `<p class="font-black text-2xl text-center font-mono">${date.getMinutes()}:${date.getSeconds()}</p>`;
     time++;
-    WordsPerMin = ((wordCount / time)*60).toPrecision(4);
+    WordsPerMin = ((wordCount / time) * 60).toPrecision(4);
     ErrorPrecentage = (((keyStrokes - points) * 100) / keyStrokes).toPrecision(
       4
     );
+    ErrorPrecentage = ErrorPrecentage == NaN ? 0 : ErrorPrecentage;
     wps.innerText = WordsPerMin;
     errPer.innerText = `${ErrorPrecentage} %`;
   }, 1000);
@@ -128,10 +135,7 @@ function gameStart() {
   document.body.addEventListener("keydown", (e) => {
     switch (e.key) {
       case "Escape":
-        console.log("esc");
-        if (time >= 10) {
-          gameEnd();
-        }
+        document.location.reload();
         break;
       case "Shift":
         break;
@@ -153,13 +157,27 @@ function gameStart() {
 
 function gameEnd() {
   stopTimer();
+  console.log(checkRank(WordsPerMin));
+  updateLeaderboard(
+    "set",
+    checkRank(WordsPerMin),
+    playerName,
+    WordsPerMin,
+    ErrorPrecentage
+  );
   prompt(
     "Your Score",
-    `Your Average WORDS PRE MINUTE :- ${WordsPerSec}.....Your Error Percentage is :- ${ErrorPrecentage}`
+    `${playerName}... Your Average WORDS PRE MINUTE :- ${WordsPerMin}.....Your Error Percentage is :- ${ErrorPrecentage}`
   );
 }
 
 pBtn.addEventListener("click", () => {
+  playerName = input.value;
+  timeLimit = duration.value * 60;
+  if (playerName.trim() == "") {
+    alert("Please Enter the name!");
+    return;
+  }
   startTile.style.display = "none";
   typeTest.style.display = "flex";
   board.style.display = "flex";
@@ -181,3 +199,43 @@ lBtn.addEventListener("click", () => {
   liked = liked == true ? false : true;
   lBtn.innerText = liked == true ? "Like ❤️" : "Like 🤍";
 });
+
+////////////LeaderBoard Script////////////
+
+function fillLeaderBoard() {
+  leaderboard = updateLeaderboard("get");
+  for (let i = 1; i <= leaderboard.length; i++) {
+    LeaderBoardList.innerHTML += `<li>${leaderboard[i].name}  ${leaderboard[i].WPM}-WPM</li>`;
+  }
+}
+
+function updateLeaderboard(act, rank, name = null, wpm = 0, err = 0) {
+  const xmlhttp = new XMLHttpRequest();
+  let myObj;
+  let value = {
+    rank: rank,
+    name: name,
+    WPM: wpm,
+  };
+  xmlhttp.onload = function () {
+    myObj = JSON.parse(this.responseText);
+  };
+  xmlhttp.open(
+    "GET",
+    `script.php?v=${JSON.stringify(value)}&a=${act}&e=${err}`,
+    false
+  );
+  xmlhttp.send();
+  return myObj;
+}
+
+function checkRank(wpm) {
+  for (let i = 1; i < leaderboard.length; i++) {
+    if (leaderboard[i].WPM < wpm) {
+      return leaderboard[i].rank;
+    }
+  }
+  return leaderboard["length"] + 1;
+}
+
+fillLeaderBoard();
