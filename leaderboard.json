@@ -1,5 +1,1 @@
-{
-  "length": 2,
-  "1": { "name": "Anupam", "WPM": 0 },
-  "2": { "name": "Test 2", "WPM": 0 }
-}
+{"length":2,"1":{"name":"Anupam","WPM":1},"2":{"name":"Anupam","WPM":0}}

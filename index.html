@@ -9,11 +9,11 @@
   </head>
   <body class="flex flex-col">
     <header class="bg-blue-400 flex flex-row sticky w-full">
-      <nav class="flex min-h-10 w-fit">
-        <ul class="list-inside flex p-3 space-x-3">
-          <li class="list-item">Home</li>
-          <li class="list-item">About</li>
-          <li class="list-item">Contact</li>
+      <nav class="flex min-h-[20px] h-fit w-fit">
+        <ul class="list-inside flex p-2 space-x-3 text-sm">
+          <li class="list-item cursor-pointer">Home</li>
+          <li class="list-item cursor-pointer">About</li>
+          <li class="list-item cursor-pointer">Contact</li>
         </ul>
       </nav>
       <div
@@ -24,20 +24,22 @@
     </header>
     <main>
       <div
-        class="text-4xl flex w-max h-fit p-2 mx-auto my-4 font-bold font-sans"
+        class="text-2xl flex w-full items-center justify-center h-fit p-2 mx-auto my-2 font-light font-fira text-clip text-center"
       >
         Test Your typing Speed and Accuracy
       </div>
       <div
-        class="startTile flex w-9/12 mx-auto bg-orange-200 border rounded shadow-md max-w-4xl flex-col shadow-black"
+        class="startTile flex w-9/12 max-w-[600px] mx-auto bg-orange-200 shadow-lg flex-col shadow-black"
       >
-        <div
-          class="text-xl flex w-max h-fit p-2 mx-auto my-4 font-bold font-sans"
-        >
+        <div class="text-lg flex w-max h-fit p-1 mx-auto font-medium font-mono">
           Fill below Fields
         </div>
-        <div class="grid w-full h-max p-3 my-3 grid-flow-col grid-cols-3">
-          <label for="name" class="font-medium place-self-end self-center"
+        <div
+          class="flex h-max px-2 my-2 flex-col md:flex-row items-center justify-center"
+        >
+          <label
+            for="name"
+            class="font-light font-fira md:text-lg text-sm h-fit min-w-[100px] text-center md:text-right"
             >Name here: &nbsp;</label
           >
           <input
@@ -45,11 +47,13 @@
             type="text"
             name="name"
             id="name"
-            class="border-collapse min-w-7/12 border-2 shadow-md shadow-black hover:cursor-text hover:border-gray-700 pl-1 text-center col-span-1 w-full"
+            class="min-w-[100px] shadow-sm shadow-black hover:cursor-text pl-1 text-center w-[80%] md:w-[60%] focus:border focus:border-black outline-none"
           />
-          <div class="w-full flex items-center justify-center">
+          <div
+            class="min-w-[80px] w-[20%] flex items-center justify-center my-[6px] md:my-0 md:mx-auto"
+          >
             <select
-              class="flex min-w-[110px] w-[50%] bg-slate-300 border border-white"
+              class="flex text-center w-full bg-white cursor-pointer hover:border hover:border-black"
               title="Duration"
               name="duration"
               id="duration"
@@ -60,49 +64,49 @@
           </div>
         </div>
         <div
-          class="grid w-full grid-cols-3 justify-items-center content-center my-5"
+          class="grid w-full grid-cols-3 justify-items-center content-center my-4"
         >
           <div
-            class="like w-max flex bg-blue-500 border-4 border-b-blue-700 border-r-blue-700 border-t-blue-300 border-l-blue-300 py-5 px-4 text-3xl font-serif font-bold text-black shadow-xl shadow-black hover:bg-blue-600 hover:px-5 hover: hover:text-white hover:border-4 transition-all duration-200 cursor-pointer col-start-1"
+            class="like w-[90%] text-center flex bg-blue-500 border-2 border-b-blue-700 border-r-blue-700 border-t-blue-300 border-l-blue-300 p-2 sm:text-2xl md:p-3 text-lg items-center justify-center font-fira font-light text-black shadow-lg shadow-black hover:bg-blue-600 hover:text-white hover:border-4 transition-all duration-200 cursor-pointer col-start-1"
             draggable="true"
           >
             Like 🤍
           </div>
           <div
-            class="play w-max flex bg-red-500 border-4 border-b-red-700 border-r-red-700 border-t-red-300 border-l-red-300 p-5 text-3xl font-serif font-bold text-black shadow-xl shadow-black hover:bg-red-600 hover:px-6 hover: hover:text-white hover:border-4 transition-all duration-200 cursor-pointer col-start-2"
+            class="play w-[90%] text-center flex bg-red-500 border-2 border-b-red-700 border-r-red-700 border-t-red-300 border-l-red-300 p-2 sm:text-2xl md:p-3 text-lg items-center justify-center font-fira font-light text-black shadow-lg shadow-black hover:bg-red-600 hover:text-white hover:border-4 transition-all duration-200 cursor-pointer col-start-2"
             draggable="true"
           >
             Start
           </div>
           <div
-            class="help cursor-help w-max flex bg-green-500 border-4 border-b-green-700 border-r-green-700 border-t-green-300 border-l-green-300 p-5 text-3xl font-serif font-bold text-black shadow-xl shadow-black hover:bg-green-600 hover:px-6 hover: hover:text-white hover:border-4 transition-all duration-200 col-start-3"
+            class="help cursor-help w-[90%] text-center flex bg-green-500 border-2 border-b-green-700 border-r-green-700 border-t-green-300 border-l-green-300 p-2 sm:text-2xl md:p-3 text-lg items-center justify-center font-fira font-light text-black shadow-lg shadow-black hover:bg-green-600 hover:text-white hover:border-4 transition-all duration-200 col-start-3"
             draggable="true"
           >
             Help
           </div>
         </div>
         <div
-          class="flex bg-white border-1 border-blue-50 shadow-sm shadow-slate-700 w-9/12 min-h-max h-96 mx-auto my-5 flex-col"
+          class="flex bg-white shadow-md shadow-slate-700 w-9/12 min-h-[200px] h-[40vh] mx-auto my-3 flex-col"
         >
           <div
-            class="flex text-lg font-serif font-medium underline text-center my-2 mx-auto max-w-full w-max h-fit"
+            class="flex text-lg font-fira font-extralight underline text-center my-2 mx-auto max-w-full w-max h-fit"
           >
             Leaderboard
           </div>
-          <div class="w-full px-2">
+          <div class="w-full px-2 overflow-scroll">
             <ol
-              class="leaderboard list-[upper-roman] list-inside text-xl font-sans"
+              class="leaderboard list-[upper-roman] list-inside text-xl font-fira"
               type="1"
             ></ol>
           </div>
         </div>
       </div>
       <div
-        class="typeTest bg-[url('./page1.png')] bg-no-repeat bg-inherit bg-cover flex w-9/12 h-[35vh] border rounded-sm max-w-2xl shadow-sm mx-auto shadow-black pt-28 text-2xl pl-24 leading-[1.24] overflow-hidden min-w-[672px] min-h-[300px]"
+        class="typeTest bg-[url('./page1.png')] bg-no-repeat bg-inherit bg-cover bg-fixed flex w-[90vw] h-[30vh] border rounded-sm max-w-2xl shadow-sm mx-auto shadow-black pt-28 text-2xl pl-24 leading-[1.24] overflow-clip min-h-[250px]"
         style="display: none"
       ></div>
       <div
-        class="board flex flex-row w-9/12 h-[35vh] min-h-[200px] border shadow-md shadow-black mx-auto my-7 bg-slate-100 max-w-2xl min-w-[672px]"
+        class="board flex flex-row w-[90vw] h-[35vh] min-h-[200px] border shadow-md shadow-black mx-auto my-7 bg-slate-100 max-w-2xl"
         style="display: none"
       >
         <div
@@ -111,59 +115,59 @@
           <div
             class="timer w-[15vh] h-[15vh] rounded-full border-8 border-black text-center flex items-center justify-center"
           >
-            <p class="font-black text-8xl text-center font-mono">0</p>
+            <p class="font-black text-8xl text-center font-fira">0</p>
           </div>
           <h3 class="text-4xl">Timer</h3>
         </div>
         <div
-          class="stroke flex h-full w-[40%] font-black text-9xl text-center items-center justify-center font-mono"
+          class="stroke flex h-full w-[40%] font-black text-9xl text-center items-center justify-center font-fira"
         ></div>
         <div
           class="point flex h-full w-[30%] items-center justify-center flex-col"
         >
           <div
-            class="score w-max h-max rounded border-8 border-black font-black text-8xl text-center flex items-center justify-center font-mono"
+            class="score w-max h-max rounded border-8 border-black font-black text-8xl text-center flex items-center justify-center font-fira"
           >
             0
           </div>
           <div
             class="grid border-2 border-black h-max w-full my-4 text-xl text-center grid-rows-3 grid-cols-2"
           >
-            <div class="col-start-1 row-start-1 font-bold font-serif">
+            <div class="col-start-1 row-start-1 font-bold font-fira">
               WPM:&nbsp;
             </div>
-            <div class="wps col-start-2 row-start-1 font-mono">0</div>
+            <div class="wps col-start-2 row-start-1 font-fira">0</div>
             <div class="col-start-1 row-start-2 font-bold font-serif">
               Error:&nbsp;
             </div>
-            <div class="errPer col-start-2 row-start-2 font-mono">0%</div>
-            <div class="col-start-1 row-start-3 font-bold font-serif">
+            <div class="errPer col-start-2 row-start-2 font-fira">0%</div>
+            <div class="col-start-1 row-start-3 font-bold font-fira">
               Overall:&nbsp;
             </div>
-            <div class="comment col-start-2 row-start-3 font-mono"></div>
+            <div class="comment col-start-2 row-start-3 font-fira"></div>
           </div>
         </div>
       </div>
     </main>
     <div
-      class="hidden flex pb w-[80%] min-w-[400px] max-w-[600px] h-max min-h-[200px] py-4 px-3 absolute top-[25%] rounded-sm border border-r-black shadow-md shadow-slate-700 bg-cyan-700 bg-opacity-20 font-bold font-serif backdrop-blur-lg self-center justify-self-center items-center flex-col"
+      class="hidden flex pb w-[80%] max-w-[600px] h-max min-h-[300px] py-4 px-3 absolute top-[25%] rounded-sm border border-r-black shadow-md shadow-slate-700 bg-cyan-700 bg-opacity-20 font-light font-fira backdrop-blur-lg self-center justify-self-center items-center flex-col"
       draggable="true"
     >
       <div
-        class="pclose flex absolute w-[20px] h-[20px] bg-red-700 top-[5px] right-[10px] border border-black hover:bg-red-400 font-mono font-bold text-xl items-center justify-center cursor-pointer"
+        class="pclose flex absolute w-[20px] h-[20px] bg-red-700 top-[5px] right-[10px] border border-black hover:bg-red-400 font-fira font-bold text-xl items-center justify-center cursor-pointer"
       >
         X
       </div>
       <div
-        class="flex pheading text-3xl bg-blue-400 w-[90%] h-max py-3 px-5 text-clip items-center justify-center rounded border border-black"
+        class="flex pheading text-3xl bg-gray-200 w-[90%] h-max py-3 px-5 my-3 text-clip items-center justify-center border border-black"
       ></div>
       <br />
       <div
-        class="ptext text-black bg-cyan-400 border border-cyan-600 backdrop-blur-lg bg-opacity-20"
+        class="ptext text-black min-h-[200px] border border-cyan-600 bg-[url('./page1.png')] bg-no-repeat bg-inherit bg-cover p-3"
       ></div>
     </div>
     <footer
-      class="fixed flex w-full h-max bg-cyan-500 text-center items-center justify-center font-serif font-light text-sm bottom-0"
+      class="fixed flex w-full h-max bg-cyan-500 text-center items-center justify-center font-fira font-light text-sm bottom-0"
     >
       @Made by Anupam Pandey
     </footer>

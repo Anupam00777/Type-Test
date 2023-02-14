@@ -58,11 +58,13 @@ function serveTest() {
   typeTest.innerHTML = null;
   for (let i = 0; i < Sentence.length; i++) {
     if (Sentence[i] !== " ") {
-      letterContent = `<div id="letter${i}" class="h-max flex">${Sentence[i]}</div>`;
+      letterContent = `<div id="letter${i}" class="h-max p-0 font-fira mx-[1px] font-light text-[3vw] flex">${Sentence[i]}</div>`;
     } else {
-      letterContent = `<div id="letter${i}" class="h-max flex">&nbsp;</div>`;
+      letterContent = `<div id="letter${i}" class="h-max p-0 font-fira mx-[1px] font-light text-[3vw] flex">&nbsp;</div>`;
     }
     typeTest.innerHTML += letterContent;
+    document.getElementById(`letter${onLetter}`).style.background = '#ffec53'; 
+
   }
 }
 
@@ -106,10 +108,10 @@ function stopTimer() {
 
 function validText(t) {
   if (Sentence[onLetter] === t) {
-    document.getElementById(`letter${onLetter}`).className += " text-green-600";
+    document.getElementById(`letter${onLetter}`).style.background = '#66ff51'; 
     points++;
   } else {
-    document.getElementById(`letter${onLetter}`).className += " text-red-600";
+    document.getElementById(`letter${onLetter}`).style.background = '#ff5959'; 
   }
   keyStrokes++;
   onLetter++;
@@ -118,7 +120,9 @@ function validText(t) {
   if (onLetter == Sentence.length) {
     wordCount++;
     serveTest();
+    return;
   }
+  document.getElementById(`letter${onLetter}`).style.background = '#ffec53'; 
 }
 
 function prompt(heading, text, time = 5) {
@@ -202,36 +206,44 @@ lBtn.addEventListener("click", () => {
 
 ////////////LeaderBoard Script////////////
 
-function fillLeaderBoard() {
-  leaderboard = updateLeaderboard("get");
-  for (let i = 1; i <= leaderboard.length; i++) {
-    LeaderBoardList.innerHTML += `<li>${leaderboard[i].name}  ${leaderboard[i].WPM}-WPM</li>`;
-  }
+async function fillLeaderBoard() { 
+  let promise = new Promise((v)=>{
+    v(updateLeaderboard("get"));  
+  });  
+  promise.then((v)=>{
+    leaderboard = v; 
+    for (let i = 1; i <= leaderboard.length; i++) {
+      LeaderBoardList.innerHTML += `<li>${leaderboard[i].name}  ${leaderboard[i].WPM}-WPM</li>`;
+    } 
+  })
 }
 
-function updateLeaderboard(act, rank, name = null, wpm = 0, err = 0) {
-  const xmlhttp = new XMLHttpRequest();
-  let myObj;
-  let value = {
-    rank: rank,
-    name: name,
-    WPM: wpm,
-  };
-  xmlhttp.onload = function () {
-    myObj = JSON.parse(this.responseText);
-  };
-  xmlhttp.open(
-    "GET",
-    `script.php?v=${JSON.stringify(value)}&a=${act}&e=${err}`,
-    false
-  );
-  xmlhttp.send();
-  return myObj;
+async function updateLeaderboard(act, rank = null, name = null, wpm = 0, err = 0) {
+  let promise = new Promise((v,e)=>{
+    const xmlhttp = new XMLHttpRequest(); 
+    let value = {
+      rank: rank,
+      name: name,
+      WPM: wpm,
+    };
+    xmlhttp.onload = function () {
+      if(act === "get"){
+      v(JSON.parse(this.responseText));}else{
+        v("Done");
+      }
+    };
+    xmlhttp.open(
+      "GET",
+      `script.php?v=${JSON.stringify(value)}&a=${act}&e=${err}`
+    );
+    xmlhttp.send();
+  }) 
+  return await promise;
 }
 
 function checkRank(wpm) {
-  for (let i = 1; i < leaderboard.length; i++) {
-    if (leaderboard[i].WPM < wpm) {
+  for (let i = 1; i <= leaderboard.length; i++) {
+    if (wpm >= leaderboard[i].WPM) {
       return leaderboard[i].rank;
     }
   }
