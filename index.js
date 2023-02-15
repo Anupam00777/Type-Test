@@ -213,28 +213,27 @@ async function fillLeaderBoard() {
   promise.then((v)=>{
     leaderboard = v; 
     for (let i = 1; i <= leaderboard.length; i++) {
-      LeaderBoardList.innerHTML += `<li>${leaderboard[i].name}  ${leaderboard[i].WPM}-WPM</li>`;
+      LeaderBoardList.innerHTML += `<li>${leaderboard[i].name} - ${leaderboard[i].WPM} -WPM - ${leaderboard[i].Error}% -Error</li>`;
     } 
   })
 }
 
-async function updateLeaderboard(act, rank = null, name = null, wpm = 0, err = 0) {
+async function updateLeaderboard(act, rank = null, name = null, wpm = 0, err = 0, extra = 0) {
   let promise = new Promise((v,e)=>{
     const xmlhttp = new XMLHttpRequest(); 
-    let value = {
+    let value = JSON.stringify({
       rank: rank,
       name: name,
       WPM: wpm,
-    };
+      Error:err
+    });
     xmlhttp.onload = function () {
-      if(act === "get"){
-      v(JSON.parse(this.responseText));}else{
-        v("Done");
-      }
+        console.log(this.responseText);
+      v(JSON.parse(this.responseText));
     };
     xmlhttp.open(
-      "GET",
-      `script.php?v=${JSON.stringify(value)}&a=${act}&e=${err}`
+      "POST",
+      `script.php?v=${value}&a=${act}&e=${extra}`
     );
     xmlhttp.send();
   }) 
@@ -244,10 +243,10 @@ async function updateLeaderboard(act, rank = null, name = null, wpm = 0, err = 0
 function checkRank(wpm) {
   for (let i = 1; i <= leaderboard.length; i++) {
     if (wpm >= leaderboard[i].WPM) {
-      return leaderboard[i].rank;
+      return i;
     }
   }
-  return leaderboard["length"] + 1;
+  return (leaderboard.length + 1);
 }
 
 fillLeaderBoard();
