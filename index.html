@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-5/6">
+<html lang="en" class="h-[100vh]">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -22,14 +22,17 @@
         <h2 class="text-yellow-500">TyPe teSt</h2>
       </div>
     </header>
-    <main>
+    <main
+      class="bg-[url('./doodle.jpg')] bg-cover bg-fixed bg-no-repeat h-[100vh]"
+    >
       <div
-        class="text-2xl flex w-full items-center justify-center h-fit p-2 mx-auto my-2 font-light font-fira text-clip text-center"
+        class="text-2xl flex w-9/12 max-w-[600px] items-center justify-center h-fit p-2 mx-auto my-2 font-bold font-fira text-clip text-center backdrop-blur-md shadow-lg shadow-black bg-white bg-opacity-20"
       >
         Test Your typing Speed and Accuracy
       </div>
+      <!------------------First Page--------------------->
       <div
-        class="startTile flex w-9/12 max-w-[600px] mx-auto bg-orange-200 shadow-lg flex-col shadow-black"
+        class="startTile flex w-9/12 max-w-[600px] mx-auto bg-orange-300 bg-opacity-20 backdrop-blur-md shadow-xl flex-col shadow-black"
       >
         <div class="text-lg flex w-max h-fit p-1 mx-auto font-medium font-mono">
           Fill below Fields
@@ -101,54 +104,61 @@
           </div>
         </div>
       </div>
+      <!------------------Second Page--------------------->
+      <!-------------------Display------------------------>
       <div
-        class="typeTest bg-[url('./page1.png')] bg-no-repeat bg-inherit bg-cover bg-fixed flex w-[90vw] h-[30vh] border rounded-sm max-w-2xl shadow-sm mx-auto shadow-black pt-28 text-2xl pl-24 leading-[1.24] overflow-clip min-h-[250px]"
+        class="typeTest flex w-[90vw] h-[30vh] rounded-sm max-w-2xl shadow-lg mx-auto bg-gray-100 shadow-black pt-[2vh] text-2xl p-[5px] min-h-[250px] flex-wrap content-center"
         style="display: none"
       ></div>
+      <!---------------------Score Board----------------->
       <div
-        class="board flex flex-row w-[90vw] h-[35vh] min-h-[200px] border shadow-md shadow-black mx-auto my-7 bg-slate-100 max-w-2xl"
+        class="board grid grid-cols-2 grid-rows-2 sm:flex sm:items-center sm:justify-center sm:flex-row w-[90vw] h-[35vh] min-h-[200px] border shadow-md shadow-black mx-auto my-7 bg-slate-100 max-w-2xl"
         style="display: none"
       >
         <div
-          class="clock flex flex-col h-full w-[30%] items-center justify-center"
+          class="clock col-start-2 row-start-1 flex flex-row sm:flex-col h-full sm:w-[30%] items-center justify-center sm:justify-center border sm:border-r-gray-400 sm:text-5xl text-3xl sm:space-y-3"
         >
+          <h3>Timer</h3>
           <div
-            class="timer w-[15vh] h-[15vh] rounded-full border-8 border-black text-center flex items-center justify-center"
+            class="timer mx-3 sm:mx-0 aspect-[1/1] rounded-full border-2 border-black text-center p-[10px] flex items-center justify-center"
           >
-            <p class="font-black text-8xl text-center font-fira">0</p>
+            <p class="font-light text-center font-fira">0</p>
           </div>
-          <h3 class="text-4xl">Timer</h3>
         </div>
         <div
-          class="stroke flex h-full w-[40%] font-black text-9xl text-center items-center justify-center font-fira"
-        ></div>
+          class="stroke col-start-1 row-start-1 row-span-2 flex h-full sm:w-[40%] font-light text-9xl text-center items-center justify-center font-fira border border-r-gray-400"
+        >
+          0
+        </div>
         <div
-          class="point flex h-full w-[30%] items-center justify-center flex-col"
+          class="point col-start-2 row-start-2 flex h-full sm:w-[30%] items-center justify-center flex-row sm:space-x-0 space-x-6 sm:flex-col border border-t-gray-400 sm:border-none"
         >
           <div
-            class="score w-max h-max rounded border-8 border-black font-black text-8xl text-center flex items-center justify-center font-fira"
+            class="score w-[30%] h-max rounded font-light sm:text-7xl text-5xl text-center flex items-center justify-center font-fira"
           >
             0
           </div>
           <div
-            class="grid border-2 border-black h-max w-full my-4 text-xl text-center grid-rows-3 grid-cols-2"
+            class="grid h-max w-[70%] my-4 sm:text-xl text-lg text-center grid-rows-3 grid-cols-2 justify-evenly"
           >
-            <div class="col-start-1 row-start-1 font-bold font-fira">
+            <div class="col-start-1 row-start-1 font-light font-fira">
               WPM:&nbsp;
             </div>
             <div class="wps col-start-2 row-start-1 font-fira">0</div>
-            <div class="col-start-1 row-start-2 font-bold font-serif">
+            <div class="col-start-1 row-start-2 font-light font-fira">
               Error:&nbsp;
             </div>
             <div class="errPer col-start-2 row-start-2 font-fira">0%</div>
-            <div class="col-start-1 row-start-3 font-bold font-fira">
+            <div class="col-start-1 row-start-3 font-light font-fira">
               Overall:&nbsp;
             </div>
             <div class="comment col-start-2 row-start-3 font-fira"></div>
           </div>
         </div>
       </div>
+      <!----------------- Page Ends -------------------->
     </main>
+    <!-- Prompt Box -->
     <div
       class="hidden flex pb w-[80%] max-w-[600px] h-max min-h-[300px] py-4 px-3 absolute top-[25%] rounded-sm border border-r-black shadow-md shadow-slate-700 bg-cyan-700 bg-opacity-20 font-light font-fira backdrop-blur-lg self-center justify-self-center items-center flex-col"
       draggable="true"
@@ -169,7 +179,14 @@
     <footer
       class="fixed flex w-full h-max bg-cyan-500 text-center items-center justify-center font-fira font-light text-sm bottom-0"
     >
-      @Made by Anupam Pandey
+      @Made by&nbsp
+      <a
+        class="font-semibold text-teal-900"
+        href="https://www.instagram.com/anupam_pandey_offline/"
+        target="_blank"
+      >
+        Anupam Pandey</a
+      >
     </footer>
   </body>
   <script src="./index.js"></script>

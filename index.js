@@ -28,6 +28,7 @@ let WordsPerMin = 0;
 let liked = false;
 let ErrorPrecentage = 0;
 let Sentence = "";
+let words = 10;
 let wordPool;
 let playerName;
 const date = new Date(0);
@@ -51,21 +52,27 @@ function createTest() {
 function serveTest() {
   Sentence = "";
   onLetter = 0;
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < words; i++) {
     Sentence += wordPool[Math.floor(Math.random() * (333000 - 1 + 1) + 1)];
     if (i != 4) Sentence += " ";
   }
   typeTest.innerHTML = null;
-  for (let i = 0; i < Sentence.length; i++) {
+  let word, letterContent;
+  let j = 0;
+  typeTest.innerHTML += `<div id="word${j}" class="flex h-max my-[4px] mx-[2px]"></div>`;
+  for (let i = 0; i < Sentence.length; i++) { 
+    word = document.getElementById(`word${j}`);
     if (Sentence[i] !== " ") {
       letterContent = `<div id="letter${i}" class="h-max p-0 font-fira mx-[1px] font-light text-[3vw] flex">${Sentence[i]}</div>`;
     } else {
-      letterContent = `<div id="letter${i}" class="h-max p-0 font-fira mx-[1px] font-light text-[3vw] flex">&nbsp;</div>`;
-    }
-    typeTest.innerHTML += letterContent;
-    document.getElementById(`letter${onLetter}`).style.background = '#ffec53'; 
-
-  }
+      j++;
+      typeTest.innerHTML += `<div id="letter${i}" class="h-max p-0 font-fira mx-[1px] font-light text-[3vw] flex">&nbsp;</div>`;
+      typeTest.innerHTML += `<div id="word${j}" class="flex h-max my-[4px] mx-[2px]"></div>`;
+      continue;
+    } 
+  word.innerHTML += letterContent;
+}
+document.getElementById(`letter${onLetter}`).style.background = '#ffec53'; 
 }
 
 function countDown(x = 3, arr) {
@@ -183,8 +190,8 @@ pBtn.addEventListener("click", () => {
     return;
   }
   startTile.style.display = "none";
-  typeTest.style.display = "flex";
-  board.style.display = "flex";
+  typeTest.removeAttribute("style");
+  board.removeAttribute("style");
   countDown(3, [createTest]);
   gameStart();
 });
