@@ -634,7 +634,7 @@ video {
 }
 
 .z-\[\FFFD\FFFD\274\FFFDuW\FFFDg\3\FFFDl\FFFD\]{
-  z-index: ��ɴ�uW�g�l�;
+  z-index: ��ɴ�uW�g�l�;
 }
 
 .order-1{
@@ -1497,12 +1497,12 @@ video {
   --tw-bg-opacity: 0.1;
 }
 
-.bg-\[url\(\'\.\/page1\.png\'\)\]{
-  background-image: url('./page1.png');
+.bg-\[url\(\'\.\/img\/paper\.png\'\)\]{
+  background-image: url('./img/paper.png');
 }
 
-.bg-\[url\(\'\.\/doodle\.jpg\'\)\]{
-  background-image: url('./doodle.jpg');
+.bg-\[url\(\'\.\/img\/books\.jpg\'\)\]{
+  background-image: url('./img/books.jpg');
 }
 
 .bg-cover{

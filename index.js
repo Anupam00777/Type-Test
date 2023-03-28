@@ -63,10 +63,10 @@ function serveTest() {
   for (let i = 0; i < Sentence.length; i++) { 
     word = document.getElementById(`word${j}`);
     if (Sentence[i] !== " ") {
-      letterContent = `<div id="letter${i}" class="h-max p-0 font-fira mx-[1px] font-light text-[3vw] flex">${Sentence[i]}</div>`;
+      letterContent = `<div id="letter${i}" class="h-max p-0 font-fira mx-[1px] font-light text-2xl sm:text-5xl flex">${Sentence[i]}</div>`;
     } else {
       j++;
-      typeTest.innerHTML += `<div id="letter${i}" class="h-max p-0 font-fira mx-[1px] font-light text-[3vw] flex">&nbsp;</div>`;
+      typeTest.innerHTML += `<div id="letter${i}" class="h-max p-0 font-fira mx-[1px] font-light text-2xl sm:text-5xl flex">&nbsp;</div>`;
       typeTest.innerHTML += `<div id="word${j}" class="flex h-max my-[4px] mx-[2px]"></div>`;
       continue;
     } 
@@ -167,8 +167,7 @@ function gameStart() {
 }
 
 function gameEnd() {
-  stopTimer();
-  console.log(checkRank(WordsPerMin));
+  stopTimer(); 
   updateLeaderboard(
     "set",
     checkRank(WordsPerMin),
@@ -195,8 +194,7 @@ pBtn.addEventListener("click", () => {
   countDown(3, [createTest]);
   gameStart();
 });
-hBtn.addEventListener("click", () => {
-  console.log("p");
+hBtn.addEventListener("click", () => { 
   prompt(
     "How to Play",
     "Its Quite Easy. When the countdown finishes, a text will appear. Just start typing and continue as long as you can. Remember to consider the Upper-case letters and punctuations too. If you made a mistake the Text will turn red, Backspace won't work. Every key you press will be shown in bottom-mid part. The more letters you write, your points will increase. Based on the timer, your Words per minute value will be shown.Play for ATLEAST 10s after that you can PRESS ESCAPE to stop the game and calculate score.Percentage of Error will be shown based on how much from the total text you got wrong.",
@@ -234,8 +232,7 @@ async function updateLeaderboard(act, rank = null, name = null, wpm = 0, err = 0
       WPM: wpm,
       Error:err
     });
-    xmlhttp.onload = function () {
-        console.log(this.responseText);
+    xmlhttp.onload = function () { 
       v(JSON.parse(this.responseText));
     };
     xmlhttp.open(
